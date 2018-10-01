@@ -18,9 +18,7 @@
         <td>${user.username}</td>
         <td><#list user.roles as role>${role}<#sep>, </#list></td>
         <td><a class="btn btn-warning" href="/user/${user.id}" role="button">Edit</a></td>
-      <#--<td > <a href="/user/remove/${user.id}">Delete<a></td>-->
         <td><a class="btn btn-danger" href="/user/remove/${user.id}" role="button" onclick="if (!confirm('Are you sure?')) return false;">Delete</a></td>
-       <#--<td> <a class="btn btn-primary" href="/user/remove/${user.id}" role="button">Delete</a></td>-->
     </tr>
     </#list>
     </tbody>

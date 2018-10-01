@@ -2,20 +2,22 @@
 
 <@c.page>
     <#include "../parts/adminpanel.ftl">
+<div><FONT color="red">${error!}</FONT></div>
 <a class="btn btn-primary mb-2 p-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Add new Type
 </a>
+
 <div class="collapse" id="collapseExample">
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Введите тип" />
+                <input type="text" class="form-control" required name="name" placeholder="Введите тип" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="avgWatt" placeholder="Введите среднее за час" />
+                <input type="text" required pattern="^([1-9]|[0-9]{2,3})$" title="Цілі числа від 1 до 999 включно" class="form-control" name="avgWatt" placeholder="Введите среднее за час" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="avgHoursPerMonth" placeholder="Введите средние часы за месяц" />
+                <input type="text" required pattern="^([1-9]|[1-9][0-9]|[1-6][0-9][0-9]|7[0-1][0-9]|720)$" title="Цілі числа від 1 до 720 включно" class="form-control" name="avgHoursPerMonth" placeholder="Введите средние часы за месяц" />
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group">

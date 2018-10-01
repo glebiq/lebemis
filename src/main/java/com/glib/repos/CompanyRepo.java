@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CompanyRepo extends CrudRepository<Company, Integer> {
 Company getCompanyById(Integer id);
+Company getCompanyByName(String name);
 }

@@ -10,19 +10,19 @@
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="model" placeholder="Введите модель девайса"/>
+                <input type="text" class="form-control" required name="model" placeholder="Введите модель девайса"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="wattPlay" placeholder="Введите затраты вкл режим"/>
+                <input type="text" class="form-control" required pattern="^([1-9]|[0-9]{2,3})$" title="Цілі числа від 1 до 999 включно" name="wattPlay" placeholder="Введите затраты вкл режим"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="wattWait" placeholder="Введите затраты режим ожид"/>
+                <input type="text" class="form-control" required pattern="^([0-9]{1,2})$" title="Цілі числа від 0 до 99 включно" name="wattWait" placeholder="Введите затраты режим ожид"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="since" placeholder="Введите год выпуска"/>
+                <input type="text" class="form-control" required pattern="^(19[789]\d|20[01]\d)$" title="Рік з 1970 до 2019 включно" name="since" placeholder="Введите год выпуска"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="country" placeholder="Введите страну производителя"/>
+                <input type="text" class="form-control" required name="country" placeholder="Введите страну производителя"/>
             </div>
             <div class="form-group">
                 <label for="device">Company:</label>

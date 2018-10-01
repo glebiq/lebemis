@@ -20,7 +20,7 @@
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="text" placeholder="Введите сообщение"/>
+                <input type="text" required pattern="(\w|\s|\S){0,255}" title="Будь-які символи до 255 штук" class="form-control" name="text" placeholder="Введите сообщение"/>
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <div class="form-group">

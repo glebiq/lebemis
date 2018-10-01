@@ -2,6 +2,7 @@
 
 <@c.page>
     <#include "../parts/adminpanel.ftl">
+<div><FONT color="red">${error!}</FONT></div>
 <a class="btn btn-primary mb-2 p-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Add new Company
 </a>
@@ -9,7 +10,7 @@
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Введите название компании" />
+                <input type="text" required class="form-control" name="name" placeholder="Введите название компании" />
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group">

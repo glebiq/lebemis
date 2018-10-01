@@ -77,7 +77,7 @@ public class DeviceController {
     public String typeSave(
             @RequestParam String modelName,
             @RequestParam Double wattPlay,
-            @RequestParam Integer since,
+            @RequestParam String since,
             @RequestParam String country,
             @RequestParam Double wattWait,
             @RequestParam Company company,
@@ -86,7 +86,8 @@ public class DeviceController {
         device.setModel(modelName);
         device.setWattPlay(wattPlay);
         device.setWattWait(wattWait);
-        device.setSince(since);
+        since = since.replaceAll("\\W", "");
+        device.setSince(Integer.parseInt(since));
         device.setCountry(country);
         device.setCompany(company);
         device.setType(type);

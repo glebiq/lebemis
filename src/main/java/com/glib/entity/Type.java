@@ -20,7 +20,7 @@ public class Type {
     private String name;
     @NonNull
     @Column(name = "avg_watt")
-    private Double avgWatt;
+    private Integer avgWatt;
     @NonNull
     @Column(name = "avg_hours_per_month")
     private Integer avgHoursPerMonth;
