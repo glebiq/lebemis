@@ -11,4 +11,5 @@ public interface DeviceRepo extends CrudRepository<Device,Integer> {
     Device getDeviceById(Integer id);
     List<Device> getDevicesByType(Type type);
     List<Device> getDevicesByCompany(Company company);
+    List<Device> getDevicesByCompanyAndType(Company company,Type type);
 }
