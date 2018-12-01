@@ -1,5 +1,5 @@
 <#import "parts/common.ftl" as c>
-
+<#import "parts/pager.ftl" as p>
 <@c.page>
     <div class="form-row">
     <div class="form-group col-md-6">
@@ -44,8 +44,10 @@
 
 
 
+
 <div class="card text-center">
-<#list messages as message>
+
+<#list page.content as message>
     <div class="card-body">
     <div class="name-date-wrap">
     <span class="card-name">${message.authorName}</span>
@@ -103,4 +105,5 @@
 </#list>
     </div>
 
+    <@p.pager url page />
 </@c.page>
