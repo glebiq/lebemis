@@ -1,4 +1,5 @@
 <#import "parts/common.ftl" as c>
+<#import "parts/pager.ftl" as p>
 <@c.page>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary mb-2 p-1" data-toggle="modal" data-target="#exampleModal">
@@ -62,8 +63,6 @@
         </div>
     </div>
 
-
-
 <h4>Ваші девайси</h4>
 <table class="table table-hover">
     <thead class="thead-light">
@@ -75,7 +74,7 @@
     <th scope="col">Видалення</th>
     </thead>
     <tbody>
-    <#list usersdevice as usersdevicee>
+    <#list page.content as usersdevicee>
     <tr>
     <td>${usersdevicee.device.type.name}</td>
     <td>${usersdevicee.device.company.name}</td>
@@ -92,4 +91,7 @@ class="btn btn-danger" href="/calculation/remove/${usersdevicee.id}" role="butto
     </table>
     <p>Ваші витрати на електроенергію ${costs} грн на місяць</p>
     <p>Ви використовуєте ${watts} КВАТТ на місяць.</p>
+
+    <@p.pager url page />
+
 </@c.page>

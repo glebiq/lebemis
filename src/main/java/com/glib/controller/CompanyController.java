@@ -5,6 +5,9 @@ import com.glib.entity.Device;
 import com.glib.repos.CompanyRepo;
 import com.glib.repos.DeviceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,18 +23,22 @@ public class CompanyController {
     DeviceRepo deviceRepo;
 
     @GetMapping
-    public String getCompanies(Model model) {
-        Iterable<Company> companies = companyRepo.findAll();
-        model.addAttribute("companies", companies);
+    public String getCompanies(Model model,
+                               @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        Iterable<Company> companies = companyRepo.findAll(pageable);
+        model.addAttribute("page", companies);
+        model.addAttribute("url","/company");
         return "admin/companies";
     }
 
     @PostMapping
-    public String addCompany(@RequestParam String name, Model model) {
+    public String addCompany(@RequestParam String name, Model model,
+                             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         if (companyRepo.getCompanyByName(name) != null) {
             model.addAttribute("error", "Company " + name + " already exists!");
-            Iterable<Company> companies = companyRepo.findAll();
-            model.addAttribute("companies", companies);
+            Iterable<Company> companies = companyRepo.findAll(pageable);
+            model.addAttribute("page", companies);
+            model.addAttribute("url","/company");
             return "admin/companies";
         }
         Company company = new Company(name);

@@ -5,11 +5,17 @@ import com.glib.entity.User;
 import com.glib.entity.UsersDevice;
 import com.glib.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -28,17 +34,21 @@ public class CalculationController {
 
     @GetMapping
     public String usersDevice(@AuthenticationPrincipal User user,
-                              Model model) {
+                              Model model,
+                              @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
-        List<UsersDevice> usersDevicesByUser = usersDeviceRepo.getUsersDevicesByUser(user);
-
+        Page<UsersDevice> usersDevicesByUser = usersDeviceRepo.getUsersDevicesByUser(user,pageable);
+        long totalElements = usersDevicesByUser.getTotalElements();
+        int a =(int) totalElements;
         Iterable<Device> devices = deviceRepo.findAll();
-        model.addAttribute("usersdevice", usersDevicesByUser);
-
+        model.addAttribute("page", usersDevicesByUser);
+        model.addAttribute("url","/calculation");
         model.addAttribute("devices", devices);
         Double ActM = 0d;
         Double PasM = 0d;
-        for (UsersDevice u : usersDevicesByUser) {
+        Page<UsersDevice> usersDevicesByUser1 = usersDeviceRepo.getUsersDevicesByUser(user, new PageRequest(0, a));
+
+        for (UsersDevice u : usersDevicesByUser1) {
             Double WaitCosts = u.getPassiveTimeUsage() * u.getDevice().getWattWait();
             Double ActCosts = u.getActiveTimeUsage() * u.getDevice().getWattPlay();
 
@@ -46,6 +56,7 @@ public class CalculationController {
             PasM += WaitCosts;
 
         }
+
         Double costs = ActM + PasM;
         costs /= 1000;
         model.addAttribute("watts",String.format("%.2f", costs));

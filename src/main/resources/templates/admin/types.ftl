@@ -1,4 +1,5 @@
 <#import "../parts/common.ftl" as c>
+<#import "../parts/pager.ftl" as p>
 
 <@c.page>
     <#include "../parts/adminpanel.ftl">
@@ -57,7 +58,7 @@
     <th scope="col">Видалення</th>
     </thead>
     <tbody>
-    <#list types as type>
+    <#list page.content as type>
     <tr>
     <td>${type.name}</td>
     <td>${type.avgWatt}</td>
@@ -70,4 +71,5 @@ class="btn btn-danger" href="/type/remove/${type.id}" role="button" onclick="if 
 </#list>
     </tbody>
     </table>
+    <@p.pager url page />
 </@c.page>

@@ -7,6 +7,9 @@ import com.glib.repos.CompanyRepo;
 import com.glib.repos.DeviceRepo;
 import com.glib.repos.TypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +27,11 @@ public class DeviceController {
     TypeRepo typeRepo;
 
     @GetMapping
-    public String getDevices(Model model) {
-        Iterable<Device> devices = deviceRepo.findAll();
-        model.addAttribute("devices", devices);
+    public String getDevices(Model model,
+                             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        Iterable<Device> devices = deviceRepo.findAll(pageable);
+        model.addAttribute("page", devices);
+        model.addAttribute("url","/device");
         Iterable<Type> types = typeRepo.findAll();
         Iterable<Company> companies = companyRepo.findAll();
         model.addAttribute("companies", companies);

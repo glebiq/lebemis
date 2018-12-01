@@ -5,6 +5,9 @@ import com.glib.entity.Type;
 import com.glib.repos.DeviceRepo;
 import com.glib.repos.TypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,20 +25,24 @@ public class TypeController {
     DeviceRepo deviceRepo;
 
     @GetMapping
-    public String getTypes(Model model) {
-        Iterable<Type> types = typeRepo.findAll();
-        model.addAttribute("types", types);
+    public String getTypes(Model model,
+                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        Iterable<Type> types = typeRepo.findAll(pageable);
+        model.addAttribute("page", types);
+        model.addAttribute("url","/type");
         return "admin/types";
     }
 
     @PostMapping
     public String addType(@RequestParam String name,
                           @RequestParam Integer avgHoursPerMonth,
-                          @RequestParam Integer avgWatt, Model model) {
+                          @RequestParam Integer avgWatt, Model model,
+                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         if (typeRepo.getTypeByName(name) != null) {
             model.addAttribute("error", "Type " + name + " already exists!");
-            Iterable<Type> types = typeRepo.findAll();
-            model.addAttribute("types", types);
+            Iterable<Type> types = typeRepo.findAll(pageable);
+            model.addAttribute("page", types);
+            model.addAttribute("url","/type");
             return "admin/types";
         }
 

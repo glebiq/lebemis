@@ -1,4 +1,5 @@
 <#import "../parts/common.ftl" as c>
+<#import "../parts/pager.ftl" as p>
 
 <@c.page>
     <#include "../parts/adminpanel.ftl">
@@ -85,7 +86,7 @@
     <th scope="col">Видалення</th>
     </thead>
     <tbody>
-    <#list devices as device>
+    <#list page.content as device>
     <tr>
     <td>${device.model}</td>
     <td>${device.wattPlay}</td>
@@ -96,7 +97,7 @@
     <td>${device.type.name}</td>
     <td><a class="btn btn-warning" href="/device/${device.id}" role="button">Редагувати</a></td>
     <td><a class="btn btn-danger" href="/device/remove/${device.id}" role="button"
-           onclick="if (!confirm('Are you sure?')) return false;">Видалити</a></td>
+           onclick="if (!confirm('Ви впевнені?')) return false;">Видалити</a></td>
 
 <#--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModals">-->
 <#--Видалити-->
@@ -129,5 +130,5 @@
     </tbody>
     </table>
 
-
+    <@p.pager url page />
 </@c.page>

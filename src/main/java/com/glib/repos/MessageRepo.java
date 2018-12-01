@@ -11,8 +11,10 @@ import java.util.List;
 
 public interface MessageRepo extends CrudRepository<Message, Long> {
 
-    Page<Message> findByTextContainsIgnoreCase(String text,Pageable pageable);
+    Page<Message> findByTextContainsIgnoreCase(String text, Pageable pageable);
+
     List<Message> findByAuthor(User author);
+
     Page<Message> findAll(Pageable pageable);
 
 

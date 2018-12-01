@@ -6,6 +6,9 @@ import com.glib.entity.User;
 import com.glib.repos.MessageRepo;
 import com.glib.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +30,10 @@ public class UserController {
     MessageRepo messageRepo;
 
     @GetMapping
-    public String userList(Model model) {
-        model.addAttribute("users", userRepo.findAll());
+    public String userList(Model model,
+                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("page", userRepo.findAll(pageable));
+        model.addAttribute("url","/user");
         return "/admin/users";
     }
 
