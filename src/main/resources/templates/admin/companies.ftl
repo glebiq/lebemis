@@ -3,22 +3,36 @@
 <@c.page>
     <#include "../parts/adminpanel.ftl">
 <div><FONT color="red">${error!}</FONT></div>
-<a class="btn btn-primary mb-2 p-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Додати нову компанію
-</a>
-<div class="collapse" id="collapseExample">
-    <div class="form-group mt-3">
-        <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <input type="text" required class="form-control" name="name" placeholder="Введите название компании" />
+    <button type="button" class="btn btn-primary mb-2 p-1" data-toggle="modal" data-target="#exampleModal">
+        Додати нову компанію
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Додавання нової компанії</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+    <form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+                <input type="text" required class="form-control" name="name" placeholder="Вкажіть назву компанії" />
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Додати</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                    <button type="submit" class="btn btn-primary">Додати</button>
+                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+    </div>
+
 
 <h4>Список компаній</h4>
 
