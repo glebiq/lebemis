@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button class="btn">button</button>
+<div class="popup-wrap">
+    <div class="popup">
+        <p>То что ты пидор епты?</p>
+        <button class="popup-no">А может ты пидор?</button>
+        <button class="popup-yes">Согласен</button>
+    </div>
+</div>
+<script>
+    document.querySelector('.btn').addEventListener('click', function(){
+        console.log(1);
+    })
+
+</script>
+<style>
+    .popup-wrap{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0.8);
+    }
+    .popup{
+        width: 50%;
+        max-width: 700px;
+        margin: 0 auto;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #fff;
+    }
+    .popup p{
+        text-align: center;
+        font-size: 24px;
+        padding-bottom: 30px;
+        font-family: arial;
+        font-weight: bold;
+    }
+    .popup-no, .popup-yes{
+        display: inline-block;
+        border: none;
+        width: 50%;
+        padding: 15px 0;
+        max-width: 160px;
+    }
+    .popup-no{
+        background-color: red;
+    }
+    .popup-yes{
+        float: right;
+        background-color: green;
+    }
+</style>
+</body>
+</html>

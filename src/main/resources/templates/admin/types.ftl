@@ -4,7 +4,7 @@
     <#include "../parts/adminpanel.ftl">
 <div><FONT color="red">${error!}</FONT></div>
 <a class="btn btn-primary mb-2 p-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Add new Type
+    Додати новий тип
 </a>
 
 <div class="collapse" id="collapseExample">
@@ -21,21 +21,21 @@
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Добавить</button>
+                <button type="submit" class="btn btn-primary">Додати</button>
             </div>
         </form>
     </div>
 </div>
 
-<h4>List of types</h4>
+<h4>Список типів</h4>
 
 <table class="table table-hover">
     <thead class="thead-light">
-    <th scope="col">Name</th>
-    <th scope="col">Avg WATT</th>
-    <th scope="col">Avg Hours per Month</th>
-    <th scope="col">Editing</th>
-    <th scope="col">Deleting</th>
+    <th scope="col">Назва</th>
+    <th scope="col">Середня к-сть ВАТТ</th>
+    <th scope="col">Середня к-сть годин на місяць</th>
+    <th scope="col">Редагування</th>
+    <th scope="col">Видалення</th>
     </thead>
     <tbody>
     <#list types as type>
@@ -43,8 +43,8 @@
         <td>${type.name}</td>
         <td>${type.avgWatt}</td>
         <td>${type.avgHoursPerMonth}</td>
-        <td><a class="btn btn-warning" href="/type/${type.id}" role="button">Edit</a></td>
-        <td><a class="btn btn-danger" href="/type/remove/${type.id}" role="button" onclick="if (!confirm('Are you sure?')) return false;">Delete</a></td>
+        <td><a class="btn btn-warning" href="/type/${type.id}" role="button">Редагувати</a></td>
+        <td><a class="btn btn-danger" href="/type/remove/${type.id}" role="button" onclick="if (!confirm('Ви впевнені?')) return false;">Видалити</a></td>
     </tr>
     </#list>
     </tbody>

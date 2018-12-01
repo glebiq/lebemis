@@ -50,7 +50,7 @@
 </div>
 
 <h4>List of devices</h4>
-
+<p>2015</p>
 <table class="table table-hover">
     <thead class="thead-light">
     <th scope="col">Model</th>
@@ -80,4 +80,6 @@
     </#list>
     </tbody>
 </table>
+
+
 </@c.page>
