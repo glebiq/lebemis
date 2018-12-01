@@ -55,7 +55,7 @@
     <th scope="col">Середня к-сть ВАТТ</th>
     <th scope="col">Середня к-сть годин на місяць</th>
     <th scope="col">Редагування</th>
-    <th scope="col">Видалення</th>
+    <#--<th scope="col">Видалення</th>-->
     </thead>
     <tbody>
     <#list page.content as type>
@@ -64,9 +64,9 @@
     <td>${type.avgWatt}</td>
     <td>${type.avgHoursPerMonth}</td>
     <td><a class="btn btn-warning" href="/type/${type.id}" role="button">Редагувати</a></td>
-    <td><a
-class="btn btn-danger" href="/type/remove/${type.id}" role="button" onclick="if (!confirm('Ви впевнені?')) return false;">Видалити</a>
-    </td>
+    <#--<td><a-->
+<#--class="btn btn-danger" href="/type/remove/${type.id}" role="button" onclick="if (!confirm('Ви впевнені?')) return false;">Видалити</a>-->
+    <#--</td>-->
     </tr>
 </#list>
     </tbody>

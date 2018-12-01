@@ -1,5 +1,6 @@
 package com.glib.repos;
 
+import com.glib.entity.Device;
 import com.glib.entity.User;
 import com.glib.entity.UsersDevice;
 import org.springframework.data.domain.Page;
@@ -13,4 +14,6 @@ import java.util.List;
 public interface UsersDeviceRepo extends CrudRepository<UsersDevice,Integer> {
     Page<UsersDevice> getUsersDevicesByUser(User user, Pageable pageable);
     UsersDevice getUsersDevicesById(Integer id);
+    List<UsersDevice> getUsersDevicesByUser(User user);
+    List<UsersDevice> getUsersDevicesByDevice(Device device);
 }

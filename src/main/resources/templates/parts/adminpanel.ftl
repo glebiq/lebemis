@@ -1,6 +1,30 @@
-<nav class="nav nav-pills nav-justified mb-3">
-    <a class="nav-link active" href="/user">Користувачі</a>
-    <a class="nav-link" href="/company">Компанії</a>
-    <a class="nav-link" href="/type">Типи</a>
-    <a class="nav-link" href="/device">Девайси</a>
-</nav>
+<ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a href="/user">
+            <button class="btn btn-outline-success mr-4" type="button">Користувачі
+            </button>
+        </a>
+
+    </li>
+    <li class="nav-item">
+        <a href="/company">
+            <button class="btn btn-outline-success mr-4" type="button">Компанії
+            </button>
+        </a>
+
+
+    </li>
+    <li class="nav-item">
+        <a href="/type">
+            <button class="btn btn-outline-success mr-4" type="button">Типи
+            </button>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/device">
+            <button class="btn btn-outline-success mr-4" type="button">Девайси
+            </button>
+        </a>
+    </li>
+</ul>
+

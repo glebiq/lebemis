@@ -41,21 +41,29 @@ public class CalculationController {
         long totalElements = usersDevicesByUser.getTotalElements();
         int a =(int) totalElements;
         Iterable<Device> devices = deviceRepo.findAll();
+        if(usersDevicesByUser.getTotalElements()<1){
+
+        }
         model.addAttribute("page", usersDevicesByUser);
         model.addAttribute("url","/calculation");
         model.addAttribute("devices", devices);
         Double ActM = 0d;
         Double PasM = 0d;
-        Page<UsersDevice> usersDevicesByUser1 = usersDeviceRepo.getUsersDevicesByUser(user, new PageRequest(0, a));
+        if (a<1){
 
-        for (UsersDevice u : usersDevicesByUser1) {
-            Double WaitCosts = u.getPassiveTimeUsage() * u.getDevice().getWattWait();
-            Double ActCosts = u.getActiveTimeUsage() * u.getDevice().getWattPlay();
+        }else {
+            Page<UsersDevice> usersDevicesByUser1 = usersDeviceRepo.getUsersDevicesByUser(user, new PageRequest(0, a));
 
-            ActM += ActCosts;
-            PasM += WaitCosts;
+            for (UsersDevice u : usersDevicesByUser1) {
+                Double WaitCosts = u.getPassiveTimeUsage() * u.getDevice().getWattWait();
+                Double ActCosts = u.getActiveTimeUsage() * u.getDevice().getWattPlay();
 
+                ActM += ActCosts;
+                PasM += WaitCosts;
+
+            }
         }
+
 
         Double costs = ActM + PasM;
         costs /= 1000;

@@ -1,14 +1,14 @@
 <#import "../../parts/common.ftl" as c>
 
 <@c.page>
+<div class="suppaBlock">
 
-
-<h3>User editor</h3>
+<h3>Редагувати користувача</h3>
 
 <form action="/user" method="post">
     <div class="form-group">
-        <label for="usr">Name:</label>
-        <input type="text" name="username" value="${user.username}">
+        <label for="usr">Ім'я:</label>
+        <input type="text" name="username" disabled value="${user.username}">
     </div>
 
     <#list roles as role>
@@ -19,8 +19,16 @@
 
     <input type="hidden" value="${user.id}" name="userId">
     <input type="hidden" value="${_csrf.token}" name="_csrf">
-    <a class="btn btn-primary" href="/user/" role="button">Back</a>
-    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-primary" href="/user/" role="button">Повернутись</a>
+    <button class="btn btn-primary" type="submit">Зберегти</button>
 </form>
-
+    </div>
+    <style>
+        .suppaBlock {
+            width: 275px;
+            padding: 10px;
+            margin: auto;
+            background: #aacfe2;
+        }
+    </style>
 </@c.page>

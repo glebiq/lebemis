@@ -41,15 +41,15 @@
     <thead class="thead-light">
     <th scope="col">Назва</th>
     <th scope="col">Редагування</th>
-    <th scope="col">Видалення</th>
+    <#--<th scope="col">Видалення</th>-->
     </thead>
     <tbody>
     <#list page.content as company>
         <tr>
         <td>${company.name}</td>
         <td><a class="btn btn-warning" href="/company/${company.id}" role="button">Редагувати</a></td>
-        <td><a
-    class="btn btn-danger" href="/company/remove/${company.id}" role="button" onclick="if (!confirm('Ви впевнені?')) return false;">Видалити</a></td>
+        <#--<td><a-->
+    <#--class="btn btn-danger" href="/company/remove/${company.id}" role="button" onclick="if (!confirm('Ви впевнені?')) return false;">Видалити</a></td>-->
         </tr>
     </#list>
     </tbody>

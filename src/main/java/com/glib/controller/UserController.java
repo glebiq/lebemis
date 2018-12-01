@@ -3,9 +3,12 @@ package com.glib.controller;
 import com.glib.entity.Message;
 import com.glib.entity.Role;
 import com.glib.entity.User;
+import com.glib.entity.UsersDevice;
 import com.glib.repos.MessageRepo;
 import com.glib.repos.UserRepo;
+import com.glib.repos.UsersDeviceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -28,12 +31,14 @@ public class UserController {
     UserRepo userRepo;
     @Autowired
     MessageRepo messageRepo;
+    @Autowired
+    UsersDeviceRepo usersDeviceRepo;
 
     @GetMapping
     public String userList(Model model,
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         model.addAttribute("page", userRepo.findAll(pageable));
-        model.addAttribute("url","/user");
+        model.addAttribute("url", "/user");
         return "/admin/users";
     }
 
@@ -69,7 +74,11 @@ public class UserController {
     @GetMapping("/remove/{user}")
     public String deletingGet(@PathVariable User user) {
         List<Message> byAuthor = messageRepo.findByAuthor(user);
-
+        List<UsersDevice> usersDevicesByUser = usersDeviceRepo.getUsersDevicesByUser(user);
+        for (UsersDevice u:usersDevicesByUser
+             ) {
+            usersDeviceRepo.delete(u);
+        }
         for (Message message : byAuthor) {
             messageRepo.delete(message);
         }
