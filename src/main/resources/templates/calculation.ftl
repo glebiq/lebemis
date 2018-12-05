@@ -1,5 +1,6 @@
 <#import "parts/common.ftl" as c>
 <#import "parts/pager.ftl" as p>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <@c.page>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary mb-2 p-1" data-toggle="modal" data-target="#exampleModal">
@@ -19,13 +20,44 @@
     <div class="modal-body">
     <form method="post" enctype="multipart/form-data">
     <div class="form-group">
-    <label for="usersdevice">Модель девайсу:</label>
+    <label for="usersdevice">Тип девайсу:</label>
+<#list types>
+    <select id="sel_type" name="type" required
+            onchange="deviceType(this.options[this.selectedIndex].getAttribute('typeofs'));">
+
+        <option disabled value="" selected="selected">Оберіть тип</option>
+        <#items as type>
+        <option value="${type.id}" typeofs="${type.name}">${type.name}</option>
+        <script>
+            function deviceType(e) {
+                var form2 = document.getElementById('sel');
+
+                for (var i = 0; i < form2.options.length; i++) {
+                    var ss = form2.options[i].getAttribute('prof');
+                    form2.value = "";
+                    if (ss) {
+
+                        if (ss.includes(e)) {
+                            form2.options[i].hidden = false;
+                        } else {
+                            form2.options[i].hidden = true;
+                        }
+                    }
+                }
+            }
+        </script>
+        </#items>
+        </#list>
+    </select>
+    </div>
+    <div class="form-group">
+<label for="usersdevice">Модель девайсу:</label>
 <#list devices>
-    <select id="sel" name="device"
+    <select id="sel" name="device" required
             onchange="isPassive(this.options[this.selectedIndex].getAttribute('watts'));">
-        <option disabled>Оберіть девайс</option>
+        <option disabled selected="selected" value="">Оберіть девайс</option>
         <#items as devicee>
-        <option watts="${devicee.wattWait}" value="${devicee.id}">${devicee.model}</option>
+        <option watts="${devicee.wattWait}" value="${devicee.id}" prof="${devicee.type.name}">${devicee.company.name} ${devicee.model}</option>
         <script>
             function isPassive(e) {
                 var passiveField = document.getElementById("pass");
@@ -42,11 +74,27 @@
         </#list>
     </select>
     </div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" name="label1" id="inlineCheckbox1" value="option1" onchange="calc()">
+    <label class="form-check-label" for="inlineCheckbox1">Використовувати середні значення для данного типу</label>
+</div>
+<script>
+    function calc()
+    {
+        if (document.getElementById('inlineCheckbox1').checked)
+        {
+            document.getElementById('actTIME1').disabled=true;
+        } else {
+            document.getElementById('actTIME1').disabled=false;
+        }
+    }
+</script>
 <div class="form-group">
     <input type="text" required pattern="^([1-9]|[1-9][0-9]|[1-6][0-9][0-9]|7[0-1][0-9]|720)$"
            title="Цілі числа від 1 до 720 включно" class="form-control" name="activeTime"
-           placeholder="Вкажіть кількісь годин використання за місяць"/>
+           placeholder="Вкажіть кількісь годин використання за місяць" id="actTIME1"/>
 </div>
+
 <div class="form-group">
     <input id="pass" type="text" required pattern="^([0-9]|[1-9][0-9]|[1-6][0-9][0-9]|7[0-1][0-9]|720)$"
            title="Цілі числа від 0 до 720 включно" class="form-control" name="passiveTime"

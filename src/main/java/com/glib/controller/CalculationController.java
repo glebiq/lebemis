@@ -37,21 +37,22 @@ public class CalculationController {
                               Model model,
                               @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<UsersDevice> usersDevicesByUser = usersDeviceRepo.getUsersDevicesByUser(user,pageable);
+        Page<UsersDevice> usersDevicesByUser = usersDeviceRepo.getUsersDevicesByUser(user, pageable);
         long totalElements = usersDevicesByUser.getTotalElements();
-        int a =(int) totalElements;
+        int a = (int) totalElements;
         Iterable<Device> devices = deviceRepo.findAll();
-        if(usersDevicesByUser.getTotalElements()<1){
+        if (usersDevicesByUser.getTotalElements() < 1) {
 
         }
         model.addAttribute("page", usersDevicesByUser);
-        model.addAttribute("url","/calculation");
+        model.addAttribute("url", "/calculation");
         model.addAttribute("devices", devices);
+        model.addAttribute("types", typeRepo.findAll());
         Double ActM = 0d;
         Double PasM = 0d;
-        if (a<1){
+        if (a < 1) {
 
-        }else {
+        } else {
             Page<UsersDevice> usersDevicesByUser1 = usersDeviceRepo.getUsersDevicesByUser(user, new PageRequest(0, a));
 
             for (UsersDevice u : usersDevicesByUser1) {
@@ -67,7 +68,7 @@ public class CalculationController {
 
         Double costs = ActM + PasM;
         costs /= 1000;
-        model.addAttribute("watts",String.format("%.2f", costs));
+        model.addAttribute("watts", String.format("%.2f", costs));
         if (costs < 100) {
             costs *= 0.9;
         } else {
@@ -83,14 +84,26 @@ public class CalculationController {
     public String addDeviceToUser(@AuthenticationPrincipal User user,
                                   @RequestParam Device device
 
-            , @RequestParam Integer activeTime, @RequestParam Integer passiveTime) {
-        UsersDevice usersDevice;
-        if (passiveTime == null) {
-            usersDevice = new UsersDevice(user, device, activeTime, 0);
-        } else {
-            usersDevice = new UsersDevice(user, device, activeTime, passiveTime);
-        }
+            , @RequestParam(required = false) Integer activeTime, @RequestParam Integer passiveTime,
+                                  @RequestParam(required = false) String label1,
+                                  @RequestParam(required = false) String label2) {
 
+        UsersDevice usersDevice;
+        if (label1 != null || !label1.isEmpty()) {
+            if (passiveTime == null) {
+                usersDevice = new UsersDevice(user, device, device.getType().getAvgHoursPerMonth(), 0);
+            } else {
+                usersDevice = new UsersDevice(user, device, device.getType().getAvgHoursPerMonth(), passiveTime);
+            }
+        } else {
+
+
+            if (passiveTime == null) {
+                usersDevice = new UsersDevice(user, device, activeTime, 0);
+            } else {
+                usersDevice = new UsersDevice(user, device, activeTime, passiveTime);
+            }
+        }
         usersDeviceRepo.save(usersDevice);
 
         return "redirect:/calculation";

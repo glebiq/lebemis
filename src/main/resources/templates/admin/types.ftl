@@ -25,7 +25,7 @@
         <input type="text" class="form-control" required name="name" placeholder="Вкажіть назву типу"/>
     </div>
     <div class="form-group">
-        <input type="text" required pattern="^([1-9]|[0-9]{2,3})$" title="Цілі числа від 1 до 999 включно"
+        <input type="text" required pattern="^([1-9]|[0-9]{2,4})$" title="Цілі числа від 1 до 9999 включно"
                class="form-control" name="avgWatt" placeholder="Вкажіть середні затрати за годину"/>
     </div>
     <div class="form-group">

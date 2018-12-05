@@ -11,9 +11,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UsersDeviceRepo extends CrudRepository<UsersDevice,Integer> {
+public interface UsersDeviceRepo extends CrudRepository<UsersDevice, Integer> {
     Page<UsersDevice> getUsersDevicesByUser(User user, Pageable pageable);
+
     UsersDevice getUsersDevicesById(Integer id);
+
     List<UsersDevice> getUsersDevicesByUser(User user);
+
     List<UsersDevice> getUsersDevicesByDevice(Device device);
 }

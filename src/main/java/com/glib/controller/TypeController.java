@@ -29,7 +29,7 @@ public class TypeController {
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Iterable<Type> types = typeRepo.findAll(pageable);
         model.addAttribute("page", types);
-        model.addAttribute("url","/type");
+        model.addAttribute("url", "/type");
         return "admin/types";
     }
 
@@ -42,7 +42,7 @@ public class TypeController {
             model.addAttribute("error", "Type " + name + " already exists!");
             Iterable<Type> types = typeRepo.findAll(pageable);
             model.addAttribute("page", types);
-            model.addAttribute("url","/type");
+            model.addAttribute("url", "/type");
             return "admin/types";
         }
 
@@ -87,7 +87,7 @@ public class TypeController {
         }
         type.setName(typename);
         type.setAvgWatt(avgWatt);
-
+        type.setAvgHoursPerMonth(avgWattHoursPerMonth);
         typeRepo.save(type);
         return "redirect:/type";
     }
