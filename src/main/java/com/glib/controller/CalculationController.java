@@ -1,6 +1,7 @@
 package com.glib.controller;
 
 import com.glib.entity.Device;
+import com.glib.entity.Type;
 import com.glib.entity.User;
 import com.glib.entity.UsersDevice;
 import com.glib.repos.*;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -76,6 +78,20 @@ public class CalculationController {
         }
         String formattedDouble = String.format("%.2f", costs);
         model.addAttribute("costs", formattedDouble);
+
+        List<UsersDevice> usersDevicesByUser1 = usersDeviceRepo.getUsersDevicesByUser(user);
+        List<UsersDevice> suppa = new ArrayList<>();
+        Integer avg = 0;
+        for (UsersDevice user1 : usersDevicesByUser1) {
+            Integer avgWatt = user1.getDevice().getType().getAvgWatt();
+            Double wattPlay = user1.getDevice().getWattPlay();
+            avg += user1.getPassiveTimeUsage();
+            if (wattPlay > avgWatt) {
+                suppa.add(user1);
+            }
+        }
+        model.addAttribute("most", suppa);
+        model.addAttribute("avgg", avg);
 
         return "calculation";
     }

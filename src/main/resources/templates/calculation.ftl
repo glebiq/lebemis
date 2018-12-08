@@ -57,7 +57,8 @@
             onchange="isPassive(this.options[this.selectedIndex].getAttribute('watts'));">
         <option disabled selected="selected" value="">Оберіть девайс</option>
         <#items as devicee>
-        <option watts="${devicee.wattWait}" value="${devicee.id}" prof="${devicee.type.name}">${devicee.company.name} ${devicee.model}</option>
+        <option watts="${devicee.wattWait}" value="${devicee.id}"
+                prof="${devicee.type.name}">${devicee.company.name} ${devicee.model}</option>
         <script>
             function isPassive(e) {
                 var passiveField = document.getElementById("pass");
@@ -75,17 +76,16 @@
     </select>
     </div>
 <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" name="label1" id="inlineCheckbox1" value="option1" onchange="calc()">
+    <input class="form-check-input" type="checkbox" name="label1" id="inlineCheckbox1" value="option1"
+           onchange="calc()">
     <label class="form-check-label" for="inlineCheckbox1">Використовувати середні значення для данного типу</label>
 </div>
 <script>
-    function calc()
-    {
-        if (document.getElementById('inlineCheckbox1').checked)
-        {
-            document.getElementById('actTIME1').disabled=true;
+    function calc() {
+        if (document.getElementById('inlineCheckbox1').checked) {
+            document.getElementById('actTIME1').disabled = true;
         } else {
-            document.getElementById('actTIME1').disabled=false;
+            document.getElementById('actTIME1').disabled = false;
         }
     }
 </script>
@@ -139,7 +139,12 @@ class="btn btn-danger" href="/calculation/remove/${usersdevicee.id}" role="butto
     </table>
     <p>Ваші витрати на електроенергію ${costs} грн на місяць</p>
     <p>Ви використовуєте ${watts} КВАТТ на місяць.</p>
-
+    <p> Ваш час пасивн використ = ${avgg}</p>
+    <ul>
+    <#list most as us>
+        <li>Прилад: ${us.device.model} використовує ${us.device.wattPlay} ват, це більше ніж середнє значення для приладів цього типу ${us.device.type.avgWatt}.</li>
+    </#list>
+    </ul>
     <@p.pager url page />
 
 </@c.page>
