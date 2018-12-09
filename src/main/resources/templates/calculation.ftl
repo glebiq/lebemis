@@ -142,7 +142,7 @@ class="btn btn-danger" href="/calculation/remove/${usersdevicee.id}" role="butto
     <p> Ваш час пасивн використ = ${avgg}</p>
     <ul>
     <#list most as us>
-        <li>Прилад: ${us.device.model} використовує ${us.device.wattPlay} ват, це більше ніж середнє значення для приладів цього типу ${us.device.type.avgWatt}.</li>
+        <li>Прилад: <FONT color="red">${us.device.model}</FONT> використовує <FONT color="red">${us.device.wattPlay}</FONT> ват, це більше ніж середнє значення для приладів цього типу <FONT color="red">${us.device.type.avgWatt}</FONT>.</li>
     </#list>
     </ul>
     <@p.pager url page />
